@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { useRef } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -7,7 +7,6 @@ import { servicesData } from "./services.data";
 const CARD_W = 260;
 const GAP = 24;
 
-// ✅ Type fix (important if you use TypeScript)
 type Service = {
   id: string | number;
   title: string;
@@ -19,7 +18,7 @@ type Service = {
 type CardProps = {
   service: Service;
   index: number;
-  progress: any;
+  progress: MotionValue<number>;
   isLarge: boolean;
 };
 
@@ -33,34 +32,33 @@ const ServiceCard = ({ service, index, progress, isLarge }: CardProps) => {
   const rotate = useTransform(
     progress,
     [0, 0.45],
-    [index % 2 === 0 ? -3 : 3, 0],
+    [index % 2 === 0 ? -3 : 3, 0]
   );
 
   const clipPath = useTransform(
     progress,
     [0, 0.45],
-    ["inset(10% 0% 10% 0% round 22px)", "inset(0% 0% 0% 0% round 22px)"],
+    [
+      "inset(10% 0% 10% 0% round 22px)",
+      "inset(0% 0% 0% 0% round 22px)",
+    ]
   );
 
   const serviceLink = service.path || `/services/${service.id}`;
 
   return (
     <motion.div
-      style={
-        isLarge
-          ? {
-              x,
-              y,
-              scale,
-              opacity,
-              rotate,
-              clipPath,
-              width: CARD_W,
-              left: "50%",
-              marginLeft: -(CARD_W / 2),
-            }
-          : undefined
-      }
+      style={{
+        x,
+        y,
+        scale,
+        opacity,
+        rotate,
+        clipPath,
+        width: isLarge ? CARD_W : "100%",
+        left: isLarge ? "50%" : undefined,
+        marginLeft: isLarge ? -(CARD_W / 2) : undefined,
+      }}
       className={`
         group bg-white shadow-md rounded-2xl p-4 transition-all duration-500
         hover:-translate-y-2 hover:shadow-[0_18px_35px_rgba(15,35,65,0.14)]
@@ -121,6 +119,7 @@ const ServicesSection = () => {
           </div>
         </div>
 
+        {/* Mobile */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2 xl:hidden">
           {servicesData.slice(0, 4).map((service, index) => (
             <ServiceCard
@@ -133,6 +132,7 @@ const ServicesSection = () => {
           ))}
         </div>
 
+        {/* Desktop */}
         <div className="relative mx-auto hidden h-[380px] xl:block">
           {servicesData.slice(0, 4).map((service, index) => (
             <ServiceCard

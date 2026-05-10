@@ -3,22 +3,22 @@ import { FaQuoteRight, FaStar, FaRegStar } from "react-icons/fa";
 import { testimonialData } from "./testimonial.data";
 import type { TestimonialItem } from "./testimonial.types";
 
-const CARD_WIDTH = 380;
+const CARD_WIDTH = 340; // more responsive
 const CARD_HEIGHT = 470;
 const CARD_GAP = 24;
 const STEP = CARD_WIDTH + CARD_GAP;
 
 const duplicatedTestimonials = [...testimonialData, ...testimonialData];
 
+// 🔥 smoother animation (NO repeated frames)
 const trackAnimation = {
-  x: [0, -STEP, -STEP, -(STEP * 2), -(STEP * 2), -(STEP * 3), -(STEP * 3)],
+  x: [0, -STEP, -STEP * 2, -STEP * 3],
 };
 
 const trackTransition = {
-  duration: 14,
-  repeat: Infinity as const,
-  ease: "linear" as const,
-  times: [0, 0.18, 0.3, 0.48, 0.6, 0.78, 1],
+  duration: 12,
+  repeat: Infinity,
+  ease: "linear",
 };
 
 const TestimonialCard = ({ item }: { item: TestimonialItem }) => {
@@ -112,26 +112,25 @@ const TestimonialCard = ({ item }: { item: TestimonialItem }) => {
 const TestimonialSection = () => {
   return (
     <section className="bg-[#EEF2F3] px-4 py-8 sm:px-6 lg:px-12 xl:px-20">
-      <div className="mx-auto max-w-7xl">
-        <div className="overflow-hidden">
-          <motion.div
-            className="hidden lg:flex"
-            style={{ gap: `${CARD_GAP}px` }}
-            animate={trackAnimation}
-            transition={trackTransition}
-          >
-            {duplicatedTestimonials.map((item, index) => (
-              <TestimonialCard key={`${item.id}-${index}`} item={item} />
-            ))}
-          </motion.div>
+      <div className="mx-auto overflow-hidden max-w-7xl">
+        <motion.div
+          className="hidden lg:flex"
+          style={{ gap: `${CARD_GAP}px` }}
+          animate={trackAnimation}
+          transition={trackTransition}
+        >
+          {duplicatedTestimonials.map((item, index) => (
+            <TestimonialCard key={`${item.id}-${index}`} item={item} />
+          ))}
+        </motion.div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:hidden">
-            {testimonialData.map((item) => (
-              <div key={item.id} className="flex justify-center">
-                <TestimonialCard item={item} />
-              </div>
-            ))}
-          </div>
+        {/* Mobile */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:hidden">
+          {testimonialData.map((item) => (
+            <div key={item.id} className="flex justify-center">
+              <TestimonialCard item={item} />
+            </div>
+          ))}
         </div>
       </div>
     </section>
