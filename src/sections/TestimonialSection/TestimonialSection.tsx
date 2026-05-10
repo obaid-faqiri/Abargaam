@@ -1,21 +1,22 @@
-import { motion } from "framer-motion";
+import { motion, type Transition } from "framer-motion";
 import { FaQuoteRight, FaStar, FaRegStar } from "react-icons/fa";
 import { testimonialData } from "./testimonial.data";
 import type { TestimonialItem } from "./testimonial.types";
 
-const CARD_WIDTH = 340; // more responsive
+const CARD_WIDTH = 340;
 const CARD_HEIGHT = 470;
 const CARD_GAP = 24;
 const STEP = CARD_WIDTH + CARD_GAP;
 
 const duplicatedTestimonials = [...testimonialData, ...testimonialData];
 
-// 🔥 smoother animation (NO repeated frames)
+// ✅ smooth infinite scroll animation
 const trackAnimation = {
   x: [0, -STEP, -STEP * 2, -STEP * 3],
 };
 
-const trackTransition = {
+// ✅ FIXED TYPE ERROR HERE
+const trackTransition: Transition = {
   duration: 12,
   repeat: Infinity,
   ease: "linear",
@@ -33,6 +34,7 @@ const TestimonialCard = ({ item }: { item: TestimonialItem }) => {
     >
       <span className="pointer-events-none absolute bottom-0 left-5 right-5 h-[4px] scale-x-0 rounded-full bg-[#06BFA6] transition-transform duration-300 group-hover:scale-x-100" />
 
+      {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="h-[58px] w-[58px] overflow-hidden rounded-full border border-[#E3EAF0] bg-[#F1F5F8]">
@@ -60,12 +62,13 @@ const TestimonialCard = ({ item }: { item: TestimonialItem }) => {
                 <FaStar key={index} className="text-[14px] text-[#F4B321]" />
               ) : (
                 <FaRegStar key={index} className="text-[14px] text-[#E8D79A]" />
-              ),
+              )
             )}
           </div>
         </div>
       </div>
 
+      {/* Content */}
       <div className="flex-1 mt-8">
         <h4 className="text-[18px] font-semibold text-[#2D3748]">
           {item.title}
@@ -83,11 +86,13 @@ const TestimonialCard = ({ item }: { item: TestimonialItem }) => {
         </p>
       </div>
 
+      {/* Footer */}
       <div className="pt-10 mt-auto">
         <div className="mb-6 h-px w-full bg-[#E6EDF2]" />
 
         <div className="flex items-center gap-4">
           <div className="flex h-[40px] w-[40px] items-center justify-center overflow-hidden rounded-full border border-[#E1E8EF] bg-white">
+            {/* ✅ FIX: icon now exists in type */}
             <img
               src={item.icon}
               alt={item.company}
