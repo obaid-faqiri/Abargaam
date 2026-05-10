@@ -5,6 +5,7 @@ const About = () => {
   return (
     <>
       <AboutSection />
+      <Footer />
     </>
   );
 };
