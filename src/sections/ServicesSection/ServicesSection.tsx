@@ -7,7 +7,23 @@ import { servicesData } from "./services.data";
 const CARD_W = 260;
 const GAP = 24;
 
-const ServiceCard = ({ service, index, progress, isLarge }) => {
+// ✅ Type fix (important if you use TypeScript)
+type Service = {
+  id: string | number;
+  title: string;
+  description: string;
+  image: string;
+  path?: string;
+};
+
+type CardProps = {
+  service: Service;
+  index: number;
+  progress: any;
+  isLarge: boolean;
+};
+
+const ServiceCard = ({ service, index, progress, isLarge }: CardProps) => {
   const finalX = (index - 1.5) * (CARD_W + GAP);
 
   const x = useTransform(progress, [0, 0.45], [0, finalX]);
@@ -43,7 +59,7 @@ const ServiceCard = ({ service, index, progress, isLarge }) => {
               left: "50%",
               marginLeft: -(CARD_W / 2),
             }
-          : {}
+          : undefined
       }
       className={`
         group bg-white shadow-md rounded-2xl p-4 transition-all duration-500
@@ -81,7 +97,7 @@ const ServiceCard = ({ service, index, progress, isLarge }) => {
 };
 
 const ServicesSection = () => {
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
