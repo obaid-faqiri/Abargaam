@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { reasonsData } from "./reasons.data";
 import oneImage from "../../assets/images/Home/8.png";
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: {},
   show: {
     transition: {
@@ -11,7 +11,7 @@ const containerVariants = {
   },
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: {
     opacity: 0,
     y: 30,
@@ -26,7 +26,7 @@ const fadeUp = {
   },
 };
 
-const fadeLeft = {
+const fadeLeft: Variants = {
   hidden: {
     opacity: 0,
     x: 30,
@@ -48,6 +48,7 @@ const ReasonsSection = () => {
   return (
     <section className="bg-[#EEF2F3] px-6 py-10 lg:px-12 xl:px-20">
       <div className="mx-auto max-w-7xl rounded-b-xl border-t border-[#D9DEE4] bg-[#EEF2F3] pt-6">
+
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -55,7 +56,10 @@ const ReasonsSection = () => {
           variants={containerVariants}
           className="grid gap-5 lg:grid-cols-[1.05fr_0.9fr]"
         >
+
+          {/* LEFT SIDE */}
           <div>
+
             <motion.div variants={fadeUp} className="mb-4">
               <h2 className="max-w-[260px] text-[26px] font-semibold leading-[1.05] text-[#0E2341] md:text-[34px]">
                 Reasons to
@@ -65,6 +69,8 @@ const ReasonsSection = () => {
             </motion.div>
 
             <div className="grid gap-4 sm:grid-cols-2">
+
+              {/* FEATURED CARD */}
               {featuredCard && (
                 <motion.article
                   variants={fadeUp}
@@ -74,7 +80,10 @@ const ReasonsSection = () => {
                     <featuredCard.icon size={18} />
                   </div>
 
-                  <h3 className="text-[38px] font-bold leading-none">7+</h3>
+                  <h3 className="text-[38px] font-bold leading-none">
+                    7+
+                  </h3>
+
                   <p className="mt-2 text-lg font-semibold">
                     {featuredCard.title}
                   </p>
@@ -85,6 +94,7 @@ const ReasonsSection = () => {
                 </motion.article>
               )}
 
+              {/* NORMAL CARDS */}
               {normalCards.map((item) => (
                 <motion.article
                   key={item.id}
@@ -108,9 +118,11 @@ const ReasonsSection = () => {
                   </p>
                 </motion.article>
               ))}
+
             </div>
           </div>
 
+          {/* RIGHT IMAGE */}
           <motion.div
             variants={fadeLeft}
             className="overflow-hidden rounded-2xl"
@@ -123,7 +135,9 @@ const ReasonsSection = () => {
               />
             </div>
           </motion.div>
+
         </motion.div>
+
       </div>
     </section>
   );

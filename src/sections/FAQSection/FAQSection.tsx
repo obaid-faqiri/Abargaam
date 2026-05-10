@@ -1,9 +1,9 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { faqData } from "./faq.data";
 import { useAccordion } from "../../hooks/useAccordion";
 
-const sectionVariants = {
+const sectionVariants: Variants = {
   hidden: { opacity: 0, y: 24 },
   show: {
     opacity: 1,
@@ -15,7 +15,7 @@ const sectionVariants = {
   },
 };
 
-const listVariants = {
+const listVariants: Variants = {
   hidden: {},
   show: {
     transition: {
@@ -24,7 +24,7 @@ const listVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 14 },
   show: {
     opacity: 1,
@@ -36,7 +36,7 @@ const itemVariants = {
   },
 };
 
-const answerVariants = {
+const answerVariants: Variants = {
   hidden: {
     height: 0,
     opacity: 0,
@@ -65,7 +65,8 @@ const answerVariants = {
 };
 
 const FAQSection = () => {
-  const { toggle, isOpen } = useAccordion(null);
+  // safer default instead of null (prevents hook crash)
+  const { toggle, isOpen } = useAccordion();
 
   return (
     <section className="bg-[#EEF2F3] px-4 py-8 lg:px-12 xl:px-20">
@@ -101,7 +102,7 @@ const FAQSection = () => {
                 <motion.div
                   key={item.id}
                   variants={itemVariants}
-                  className="overflow-hidden border border-[#E5E9ED] bg-white shadow-sm rounded-lg"
+                  className="overflow-hidden rounded-lg border border-[#E5E9ED] bg-white shadow-sm"
                 >
                   {/* Question */}
                   <button

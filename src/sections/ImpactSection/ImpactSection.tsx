@@ -1,9 +1,9 @@
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FaArrowRight, FaMapMarkerAlt, FaRegCalendarAlt } from "react-icons/fa";
 import { impactProjects } from "./impact.data";
 
-const sectionVariants = {
+const sectionVariants: Variants = {
   hidden: {},
   show: {
     transition: {
@@ -12,7 +12,7 @@ const sectionVariants = {
   },
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: {
     opacity: 0,
     y: 32,
@@ -27,7 +27,7 @@ const fadeUp = {
   },
 };
 
-const rightCardVariants = {
+const rightCardVariants: Variants = {
   hidden: {
     opacity: 0,
     x: 30,
@@ -51,6 +51,7 @@ const ImpactSection = () => {
   return (
     <section className="bg-[#EEF2F3] px-6 py-10 lg:px-12 xl:px-20">
       <div className="mx-auto max-w-7xl">
+        {/* HEADER */}
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -75,6 +76,7 @@ const ImpactSection = () => {
           viewport={{ once: true, amount: 0.15 }}
           variants={sectionVariants}
         >
+          {/* TITLE */}
           <motion.div variants={fadeUp} className="max-w-xl mb-8">
             <h2 className="text-3xl font-semibold leading-tight text-[#0E2341] md:text-4xl">
               Our Recent
@@ -89,6 +91,7 @@ const ImpactSection = () => {
           </motion.div>
 
           <div className="grid gap-5 lg:grid-cols-[1.35fr_0.95fr]">
+            {/* FEATURED */}
             <motion.article
               variants={fadeUp}
               whileHover={{ y: -4 }}
@@ -110,19 +113,18 @@ const ImpactSection = () => {
 
                 <Link
                   to="/about"
-                  aria-label="View project details"
-                  className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 translate-y-8 items-center justify-center rounded-full bg-[#F7931D] text-white opacity-0 shadow-[0_12px_28px_rgba(247,147,29,0.4)] transition-all duration-500 ease-out group-hover:-translate-y-1/2 group-hover:opacity-100"
+                  className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 translate-y-8 items-center justify-center rounded-full bg-[#F7931D] text-white opacity-0 shadow transition-all duration-500 group-hover:-translate-y-1/2 group-hover:opacity-100"
                 >
                   <FaArrowRight className="-rotate-45 text-[18px]" />
                 </Link>
               </div>
 
               <div className="p-5 text-white">
-                <h3 className="text-xl font-semibold leading-snug">
+                <h3 className="text-xl font-semibold">
                   {featuredProject.title}
                 </h3>
 
-                <div className="flex flex-wrap items-center gap-4 mt-3 text-xs text-white/75">
+                <div className="flex gap-4 mt-3 text-xs text-white/75">
                   <span className="flex items-center gap-1.5">
                     <FaMapMarkerAlt size={12} />
                     {featuredProject.location}
@@ -134,29 +136,13 @@ const ImpactSection = () => {
                   </span>
                 </div>
 
-                <p className="mt-4 text-sm leading-6 text-white/80">
+                <p className="mt-4 text-sm text-white/80">
                   {featuredProject.summary}
                 </p>
-
-                <div className="mt-5">
-                  <Link
-                    to="/about"
-                    className="group/btn relative inline-flex h-[46px] items-center justify-center overflow-hidden rounded-lg bg-white px-5 text-sm font-medium text-[#0E2341]"
-                  >
-                    <span className="absolute bottom-0 left-0 h-0 w-full bg-[#F7931D] transition-all duration-500 ease-out group-hover/btn:h-full" />
-
-                    <span className="relative z-10 flex items-center gap-2 transition-colors duration-300 group-hover/btn:text-white">
-                      View Project Details
-                      <FaArrowRight
-                        size={14}
-                        className="transition-transform duration-300 group-hover/btn:translate-x-1"
-                      />
-                    </span>
-                  </Link>
-                </div>
               </div>
             </motion.article>
 
+            {/* SIDE PROJECTS */}
             <motion.div
               variants={sectionVariants}
               className="flex flex-col gap-4"
@@ -166,64 +152,24 @@ const ImpactSection = () => {
                   key={project.id}
                   variants={rightCardVariants}
                   whileHover={{ x: 4 }}
-                  className="group flex gap-4 rounded-[16px] border border-[#D9DEE4] bg-[#F9FBFC] p-3 shadow-sm transition duration-300 hover:bg-white"
+                  className="group flex gap-4 rounded-[16px] border border-[#D9DEE4] bg-[#F9FBFC] p-3 shadow-sm"
                 >
-                  <div className="relative h-[82px] w-[82px] flex-shrink-0 overflow-hidden rounded-xl">
+                  <div className="h-[82px] w-[82px] overflow-hidden rounded-xl">
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="object-cover w-full h-full transition duration-500 group-hover:scale-110"
+                      className="object-cover w-full h-full transition group-hover:scale-110"
                     />
-
-                    <div className="absolute inset-0 transition duration-300 bg-black/0 group-hover:bg-black/10" />
                   </div>
 
                   <div className="flex-1 min-w-0">
-                    <h4 className="truncate text-sm font-semibold text-[#0E2341] transition-colors duration-300 group-hover:text-[#078FA3] md:text-[15px]">
+                    <h4 className="text-sm font-semibold truncate">
                       {project.title}
                     </h4>
 
-                    <div className="mt-2 flex flex-wrap items-center gap-3 text-[11px] text-[#6B7280]">
-                      <span className="flex items-center gap-1">
-                        <FaMapMarkerAlt size={10} />
-                        {project.location}
-                      </span>
-
-                      <span className="flex items-center gap-1">
-                        <FaRegCalendarAlt size={10} />
-                        {project.year}
-                      </span>
-                    </div>
-
-                    <p className="mt-2 line-clamp-2 text-xs leading-5 text-[#5D6778]">
+                    <p className="text-xs text-[#5D6778] mt-2 line-clamp-2">
                       {project.summary}
                     </p>
-
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-full bg-[#DDF7F2] px-2.5 py-1 text-[10px] font-semibold text-[#099E8D]"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="flex items-center">
-                    <Link
-                      to="/about"
-                      aria-label={`Open ${project.title}`}
-                      className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-[#D9DEE4] bg-white text-[#0E2341]"
-                    >
-                      <span className="absolute bottom-0 left-0 h-0 w-full bg-[#F7931D] transition-all duration-500 ease-out group-hover:h-full" />
-
-                      <FaArrowRight
-                        size={12}
-                        className="relative z-10 transition-all duration-300 group-hover:-rotate-45 group-hover:text-white"
-                      />
-                    </Link>
                   </div>
                 </motion.article>
               ))}

@@ -48,7 +48,7 @@ const validateForm = (values: ContactFormValues) => {
   return errors;
 };
 
-export const useContactForm = () => {
+export default function useContactForm() {
   const [values, setValues] = useState<ContactFormValues>(contactInitialValues);
   const [errors, setErrors] = useState<ContactFormErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});

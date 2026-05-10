@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { contactInfo } from "./contact.data";
-import { Link } from "react-router-dom";
 
 const ContactInfoCards = () => {
   return (
@@ -22,11 +21,12 @@ const ContactInfoCards = () => {
               }}
               className="flex min-h-[250px] flex-col items-center justify-center rounded-[8px] bg-white px-5 py-7 text-center shadow-sm"
             >
+              {/* SAFE ICON RENDER */}
               <div
                 className="mb-4 flex h-[40px] w-[40px] items-center justify-center rounded-full text-[14px] text-white"
                 style={{ backgroundColor: item.color }}
               >
-                <Icon />
+                {Icon ? <Icon /> : null}
               </div>
 
               <h3 className="text-[14px] font-bold text-[#07152F]">
@@ -44,7 +44,6 @@ const ContactInfoCards = () => {
                 ))}
               </div>
 
-              {/* Updated "Learn More" link that routes to WhatsApp */}
               <a
                 href="https://wa.me/0093788653654?text=Hello%20I%20want%20to%20learn%20more%20about%20your%20services"
                 target="_blank"

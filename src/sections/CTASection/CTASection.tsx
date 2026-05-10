@@ -1,41 +1,42 @@
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { ctaData } from "./cta.data";
 
-const containerVariants = {
+// ✅ FIX: properly typed Variants
+const containerVariants: Variants = {
   hidden: {},
-  show: {
+  visible: {
     transition: {
       staggerChildren: 0.12,
     },
   },
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: {
     opacity: 0,
     y: 30,
   },
-  show: {
+  visible: {
     opacity: 1,
     y: 0,
     transition: {
       duration: 0.7,
-      ease: [0.22, 1, 0.36, 1],
+      ease: "easeOut",
     },
   },
 };
 
-const fadeIn = {
+const fadeIn: Variants = {
   hidden: {
     opacity: 0,
   },
-  show: {
+  visible: {
     opacity: 1,
     transition: {
       duration: 0.9,
-      ease: [0.22, 1, 0.36, 1],
+      ease: "easeOut",
     },
   },
 };
@@ -47,7 +48,7 @@ const CTASection = () => {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          whileInView="show"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           className="relative overflow-hidden rounded-[6px] shadow-sm"
         >
@@ -69,6 +70,7 @@ const CTASection = () => {
                 Faqiri
               </h3>
             </div>
+
             <motion.div
               variants={fadeUp}
               className="absolute bottom-6 left-4 z-20 max-w-[330px] sm:bottom-8 sm:left-7 sm:max-w-[520px]"
