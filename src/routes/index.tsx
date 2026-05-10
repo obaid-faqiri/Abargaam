@@ -17,4 +17,4 @@ const RoutesConfig = () => {
   );
 };
 
-export default RoutesConfig;c:\Users\delll\OneDrive\Desktop\WEB DESIGN PROJECTS\`Projects I Did\Faqiri37_Findit
+export default RoutesConfig;
